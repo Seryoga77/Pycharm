@@ -1,24 +1,25 @@
-from app import Base
-from sqlalchemy import Column, ForeignKey, INTEGER, String, BOOLEAN
-from sqlalchemy.orm import relationship
-from app import user
+from fastapi import APIRouter
+
+router = APIRouter(prefix="/task", tags=["task"])
+
+@router.get("/")
+async def get_all_tasks():
+    pass
+
+@router.get("/{task_id}")
+async def task_by_id(task_id: int):
+    pass
+
+@router.post("/create")
+async def create_task():
+    pass
+
+@router.put("/update")
+async def update_task():
+    pass
+
+@router.delete("/delete")
+async def delete_task():
+    pass
 
 
-class Task(Base):
-    __tablename__ = "tasks"
-    __table_args__ = {'keep_existing': True}
-    id = Column(INTEGER, primary_key=True, index=True)
-    title = Column(String)
-    content = Column(String)
-    priority = Column(INTEGER, default=0)
-    completed = Column(BOOLEAN, default=False)
-    user_id = Column(INTEGER, ForeignKey('users.id'), nullable=False, index=True)
-    slug = Column(String, unique=True, index=True)
-
-    user = relationship('User', back_populates='tasks')
-
-
-
-
-from  sqlalchemy.schema import CreateTable
-print(CreateTable(user.__table__))
